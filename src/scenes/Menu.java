@@ -9,7 +9,8 @@ import java.util.Random;
 
 import javax.imageio.ImageIO;
 
-import core.Game;
+import helpz.LoadSave;
+import main.Game;
 
 public class Menu extends GameScene implements SceneMethods {
 
@@ -34,6 +35,7 @@ public class Menu extends GameScene implements SceneMethods {
     }
 
     private void importImg() {
+
         InputStream is = getClass().getResourceAsStream("/res/spriteatlas.png");
 
         try {
@@ -41,19 +43,21 @@ public class Menu extends GameScene implements SceneMethods {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 
     private void loadSprites() {
-        for (int y = 0; y < 3; y++) {
-            for (int x = 0; x < 10; x++) {
-                sprites.add(img.getSubimage(32 * x, 32 * y, 32, 32));
 
+        for (int y = 0; y < 10; y++) {
+            for (int x = 0; x < 10; x++) {
+                sprites.add(img.getSubimage(x * 32, y * 32, 32, 32));
             }
         }
+
     }
 
     private int getRndInt() {
-        return random.nextInt(30);
+        return random.nextInt(100);
     }
 
 }

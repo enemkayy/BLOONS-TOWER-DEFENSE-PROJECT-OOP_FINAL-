@@ -3,12 +3,13 @@ package scenes;
 import java.awt.Color;
 import java.awt.Graphics;
 
-import core.Game;
+import main.Game;
 
 public class Settings extends GameScene implements SceneMethods {
 
     public Settings(Game game) {
         super(game);
+
     }
 
     @Override

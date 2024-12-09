@@ -1,9 +1,9 @@
 package scenes;
 
-import core.Game;
+import main.Game;
 
 public class GameScene {
-    
+
     private Game game;
 
     public GameScene(Game game) {

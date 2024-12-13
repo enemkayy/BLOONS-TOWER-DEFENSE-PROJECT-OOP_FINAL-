@@ -10,133 +10,118 @@ import scenes.Settings;
 
 public class Game extends JFrame implements Runnable {
 
-    private GameScreen gameScreen;
-    private Thread gameThread;
+	private GameScreen gameScreen;
+	private Thread gameThread;
 
-    private final double FPS_SET = 120.0;
-    private final double UPS_SET = 60.0;
+	private final double FPS_SET = 120.0;
+	private final double UPS_SET = 60.0;
 
-    private MyMouseListener myMouseListener;
-    private KeyboardListener keyboardListener;
+	// Classes
+	private Render render;
+	private Menu menu;
+	private Playing playing;
+	private Settings settings;
 
-    // Classes
-    private Render render;
-    private Menu menu;
-    private Playing playing;
-    private Settings settings;
+	public Game() {
 
-    public Game() {
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
-        setResizable(false);
-        initClasses();
+		initClasses();
 
-        add(gameScreen);
-        pack();
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setLocationRelativeTo(null);
+		setResizable(false);
+		add(gameScreen);
+		pack();
+		setVisible(true);
 
-        setVisible(true);
+	}
 
-    }
+	private void initClasses() {
+		render = new Render(this);
+		gameScreen = new GameScreen(this);
+		menu = new Menu(this);
+		playing = new Playing(this);
+		settings = new Settings(this);
 
-    private void initClasses() {
-        render = new Render(this);
-        gameScreen = new GameScreen(this);
-        menu = new Menu(this);
-        playing = new Playing(this);
-        settings = new Settings(this);
+	}
 
-    }
+	private void start() {
+		gameThread = new Thread(this) {
+		};
 
-    private void initInputs() {
-        myMouseListener = new MyMouseListener();
-        keyboardListener = new KeyboardListener();
+		gameThread.start();
+	}
 
-        addMouseListener(myMouseListener);
-        addMouseMotionListener(myMouseListener);
-        addKeyListener(keyboardListener);
+	private void updateGame() {
 
-        requestFocus();
+		// System.out.println("Game Updated!");
+	}
 
-    }
+	public static void main(String[] args) {
 
-    private void start() {
-        gameThread = new Thread(this) {
-        };
+		Game game = new Game();
+		game.gameScreen.initInputs();
+		game.start();
 
-        gameThread.start();
-    }
+	}
 
-    private void updateGame() {
+	@Override
+	public void run() {
 
-        // System.out.println("Game Updated!");
-    }
+		double timePerFrame = 1000000000.0 / FPS_SET;
+		double timePerUpdate = 1000000000.0 / UPS_SET;
 
-    public static void main(String[] args) {
+		long lastFrame = System.nanoTime();
+		long lastUpdate = System.nanoTime();
+		long lastTimeCheck = System.currentTimeMillis();
 
-        Game game = new Game();
-        game.initInputs();
-        game.start();
+		int frames = 0;
+		int updates = 0;
 
-    }
+		long now;
 
-    @Override
-    public void run() {
+		while (true) {
+			now = System.nanoTime();
+			
+			// Render
+			if (now - lastFrame >= timePerFrame) {
+				repaint();
+				lastFrame = now;
+				frames++;
+			}
 
-        double timePerFrame = 1000000000.0 / FPS_SET;
-        double timePerUpdate = 1000000000.0 / UPS_SET;
+			// Update
+			if (now - lastUpdate >= timePerUpdate) {
+				updateGame();
+				lastUpdate = now;
+				updates++;
+			}
 
-        long lastFrame = System.nanoTime();
-        long lastUpdate = System.nanoTime();
-        long lastTimeCheck = System.currentTimeMillis();
+			if (System.currentTimeMillis() - lastTimeCheck >= 1000) {
+				System.out.println("FPS: " + frames + " | UPS: " + updates);
+				frames = 0;
+				updates = 0;
+				lastTimeCheck = System.currentTimeMillis();
+			}
 
-        int frames = 0;
-        int updates = 0;
+		}
 
-        long now;
+	}
 
-        while (true) {
+	// Getters and setters
+	public Render getRender() {
+		return render;
+	}
 
-            now = System.nanoTime();
-            // Render
-            if (now - lastFrame >= timePerFrame) {
-                repaint();
-                lastFrame = now;
-                frames++;
-            }
+	public Menu getMenu() {
+		return menu;
+	}
 
-            // Update
-            if (now - lastUpdate >= timePerUpdate) {
-                updateGame();
-                lastUpdate = now;
-                updates++;
-            }
+	public Playing getPlaying() {
+		return playing;
+	}
 
-            if (System.currentTimeMillis() - lastTimeCheck >= 1000) {
-                System.out.println("FPS: " + frames + " | UPS: " + updates);
-                frames = 0;
-                updates = 0;
-                lastTimeCheck = System.currentTimeMillis();
-            }
-
-        }
-
-    }
-
-    // Getters and setters
-    public Render getRender() {
-        return render;
-    }
-
-    public Menu getMenu() {
-        return menu;
-    }
-
-    public Playing getPlaying() {
-        return playing;
-    }
-
-    public Settings getSettings() {
-        return settings;
-    }
+	public Settings getSettings() {
+		return settings;
+	}
 
 }

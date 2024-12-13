@@ -1,6 +1,7 @@
 package helpz;
 
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -8,18 +9,30 @@ import javax.imageio.ImageIO;
 
 public class LoadSave {
 
-    public static BufferedImage getSpriteAtlas() {
+	public static BufferedImage getSpriteAtlas() {
 
-        BufferedImage img = null;
-        InputStream is = LoadSave.class.getClassLoader().getResourceAsStream("res/spriteatlas.png");
+		BufferedImage img = null;
+		InputStream is = LoadSave.class.getClassLoader().getResourceAsStream("res/spriteatlas.png");
 
-        try {
-            img = ImageIO.read(is);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+		try {
+			img = ImageIO.read(is);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
-        return img;
-    }
+		return img;
+	}
+	
+	public static void CreateFile() {
+		
+		File txtFile = new File("src/res/testTextFile.txt");
+		
+		try {
+			txtFile.createNewFile();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
 
 }

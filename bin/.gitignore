@@ -1,8 +1,10 @@
-/managers/
-/scenes/
-/helpz/
 /enemies/
+/events/
+/helpz/
 /inputs/
 /main/
-/ui/
+/managers/
 /objects/
+/res/
+/scenes/
+/ui/

@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import javax.imageio.ImageIO;
+
+import helpz.LoadSave;
 import main.Game;
 import ui.MyButton;
 import static main.GameStates.*;
@@ -15,10 +17,17 @@ import static main.GameStates.*;
 public class Menu extends GameScene implements SceneMethods {
 
 	private MyButton bPlaying, bEdit, bSettings, bQuit;
+	private BufferedImage backgroundImg;
 
 	public Menu(Game game) {
 		super(game);
 		initButtons();
+		loadBackground();
+	}
+
+	private void loadBackground() {
+		backgroundImg = LoadSave.loadBackgroundImage();
+		
 	}
 
 	private void initButtons() {
@@ -26,7 +35,7 @@ public class Menu extends GameScene implements SceneMethods {
 		int w = 150;
 		int h = w / 3;
 		int x = 640 / 2 - w / 2;
-		int y = 150;
+		int y = 300;
 		int yOffset = 100;
 
 		bPlaying = new MyButton("Play", x, y, w, h);
@@ -38,6 +47,10 @@ public class Menu extends GameScene implements SceneMethods {
 
 	@Override
 	public void render(Graphics g) {
+		
+		if (backgroundImg != null) {
+			g.drawImage(backgroundImg, 0, 0, 640, 800, null);
+		}
 
 		drawButtons(g);
 

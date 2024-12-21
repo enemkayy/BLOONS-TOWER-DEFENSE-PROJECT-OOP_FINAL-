@@ -23,11 +23,11 @@ public class ActionBar extends Bar {
 
 	private DecimalFormat formatter;
 
-	private int gold = 100;
+	private int gold = 75;
 	private boolean showTowerCost;
 	private int towerCostType;
 
-	private int lives = 25;
+	private int lives = 15;
 
 	public ActionBar(int x, int y, int width, int height, Playing playing) {
 		super(x, y, width, height);
@@ -73,7 +73,7 @@ public class ActionBar extends Bar {
 		if (lives <= 0)
 			SetGameState(GAME_OVER);
 	}
-
+	
 	private void drawButtons(Graphics g) {
 		bMenu.draw(g);
 		bPause.draw(g);

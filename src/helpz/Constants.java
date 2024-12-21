@@ -18,13 +18,13 @@ public class Constants {
 		public static int GetReward(int enemyType) {
 			switch (enemyType) {
 			case Rbl:
-				return 5;
+				return 3;
 			case Bbl:
 				return 5;
 			case Pbl:
-				return 10;
+				return 8;
 			case Sbl:
-				return 25;
+				return 10;
 			}
 			return 0;
 		}
@@ -32,13 +32,13 @@ public class Constants {
 		public static float GetSpeed(int enemyType) {
 			switch (enemyType) {
 			case Rbl:
-				return 0.8f;
+				return 1.5f;
 			case Bbl:
-				return 0.9f;
+				return 1.6f;
 			case Pbl:
-				return 1f;
+				return 1.7f;
 			case Sbl:
-				return 1.3f;
+				return 1.9f;
 			}
 			return 0;
 		}
@@ -50,7 +50,7 @@ public class Constants {
 			case Bbl:
 				return 20;
 			case Pbl:
-				return 100;
+				return 30;
 			case Sbl:
 				return 40;
 
@@ -74,11 +74,11 @@ public class Constants {
 		public static float GetSpeed(int type) {
 			switch (type) {
 			case DART:
-				return 7f;
+				return 8.5f;
 			case SHURIKEN:
-				return 6f;
+				return 7.5f;
 			case BOMB:
-				return 4f;
+				return 7f;
 			}
 			return 0f;
 		}
@@ -142,11 +142,11 @@ public class Constants {
 		public static float GetDefaultCooldown(int towerType) {
 			switch (towerType) {
 			case DART_TOWER:
-				return 50;
+				return 45;
 			case NINJA_TOWER:
-				return 65;
+				return 60;
 			case SUPER_TOWER:
-				return 80;
+				return 75;
 			}
 
 			return 0;

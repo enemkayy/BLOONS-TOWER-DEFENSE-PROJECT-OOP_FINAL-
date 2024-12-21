@@ -17,6 +17,7 @@ import objects.PathPoint;
 import objects.Tower;
 import ui.ActionBar;
 import static helpz.Constants.Tiles.GRASS_TILE;
+import static main.GameStates.*;
 
 public class Playing extends GameScene implements SceneMethods {
 
@@ -87,6 +88,7 @@ public class Playing extends GameScene implements SceneMethods {
 			enemyManager.update();
 			towerManager.update();
 			projManager.update();
+
 		}
 	}
 
@@ -144,11 +146,8 @@ public class Playing extends GameScene implements SceneMethods {
 		drawSelectedTower(g);
 		drawHighlight(g);
 
-	
-
 	}
 
-	
 	private void drawHighlight(Graphics g) {
 		g.setColor(Color.WHITE);
 		g.drawRect(mouseX, mouseY, 32, 32);
@@ -243,7 +242,7 @@ public class Playing extends GameScene implements SceneMethods {
 		projManager.newProjectile(t, e);
 
 	}
-	
+
 	public void setGamePaused(boolean gamePaused) {
 		this.gamePaused = gamePaused;
 	}
@@ -297,15 +296,15 @@ public class Playing extends GameScene implements SceneMethods {
 	public WaveManager getWaveManager() {
 		return waveManager;
 	}
-	
+
 	public boolean isGamePaused() {
 		return gamePaused;
 	}
-	
+
 	public void removeOneLife() {
 		actionBar.removeOneLife();
 	}
-	
+
 	public void resetEverything() {
 
 		actionBar.resetEverything();
@@ -324,6 +323,5 @@ public class Playing extends GameScene implements SceneMethods {
 		gamePaused = false;
 
 	}
-
 
 }

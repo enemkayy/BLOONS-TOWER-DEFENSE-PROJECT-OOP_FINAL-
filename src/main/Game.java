@@ -27,7 +27,7 @@ public class Game extends JFrame implements Runnable {
 	private Settings settings;
 	private Editing editing;
 	private GameOver gameOver;
-	
+
 	private TileManager tileManager;
 
 	public Game() {
@@ -89,7 +89,7 @@ public class Game extends JFrame implements Runnable {
 			break;
 		}
 	}
-	
+
 	public static void main(String[] args) {
 
 		Game game = new Game();
@@ -161,7 +161,7 @@ public class Game extends JFrame implements Runnable {
 	public Editing getEditor() {
 		return editing;
 	}
-	
+
 	public GameOver getGameOver() {
 		return gameOver;
 	}

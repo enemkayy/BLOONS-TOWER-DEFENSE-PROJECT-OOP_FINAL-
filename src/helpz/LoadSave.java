@@ -197,6 +197,20 @@ public class LoadSave {
 
 		return img;
 	}
+	
+	public static BufferedImage loadBackgroundImage() {
+
+		BufferedImage img = null;
+		InputStream is = LoadSave.class.getClassLoader().getResourceAsStream("res/background.png");
+
+		try {
+			img = ImageIO.read(is);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return img;
+	}
 
 	public static void CreateFile() {
 

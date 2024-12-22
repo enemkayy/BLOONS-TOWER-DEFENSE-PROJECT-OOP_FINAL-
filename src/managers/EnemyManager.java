@@ -14,6 +14,7 @@ import enemies.Rbl;
 import enemies.Sbl;
 
 import helpz.LoadSave;
+import helpz.Utilz;
 import objects.PathPoint;
 import scenes.Playing;
 import static helpz.Constants.Direction.*;
@@ -28,6 +29,7 @@ public class EnemyManager {
 	private PathPoint start, end;
 	private int HPBarWidth = 20;
 	private BufferedImage slowEffect;
+	private int[][] roadDirArr;
 
 	public EnemyManager(Playing playing, PathPoint start, PathPoint end) {
 		this.playing = playing;
@@ -36,11 +38,26 @@ public class EnemyManager {
 		this.end = end;
 
 		loadEffectImg();
-
-		/*
-		 * addEnemy(Rbl); addEnemy(Bbl); addEnemy(Pbl); addEnemy(Sbl);
-		 */
 		loadEnemyImgs();
+		loadRoadDirArr();
+		tempMethod();
+	}
+
+	private void loadRoadDirArr() {
+		roadDirArr = Utilz.GetRoadDirArr(playing.getGame().getTileManager().getTypeArr(), start, end);
+
+	}
+
+	private void tempMethod() {
+		int[][] arr = Utilz.GetRoadDirArr(playing.getGame().getTileManager().getTypeArr(), start, end);
+
+		for (int j = 0; j < arr.length; j++) {
+			for (int i = 0; i < arr[j].length; i++) {
+				System.out.print(arr[j][i] + "|");
+			}
+			System.out.println();
+		}
+
 	}
 
 	private void loadEffectImg() {
@@ -57,11 +74,58 @@ public class EnemyManager {
 	}
 
 	public void update() {
-
 		for (Enemy e : enemies)
-			if (e.isAlive())
-				updateEnemyMove(e);
+			if (e.isAlive()) {
+//				updateEnemyMove(e);
+				updateEnemyMoveNew(e);
+			}
 
+	}
+
+	private void updateEnemyMoveNew(Enemy e) {
+		PathPoint currTile = getEnemyTile(e);
+		int dir = roadDirArr[currTile.getyCord()][currTile.getxCord()];
+
+		e.move(GetSpeed(e.getEnemyType()), dir);
+
+		PathPoint newTile = getEnemyTile(e);
+
+		if (!isTilesTheSame(currTile, newTile)) {
+			if (isTilesTheSame(newTile, end)) {
+				e.kill();
+				playing.removeOneLife();
+				return;
+			}
+			int newDir = roadDirArr[newTile.getyCord()][newTile.getxCord()];
+			if (newDir != dir) {
+				e.setPos(newTile.getxCord() * 32, newTile.getyCord() * 32);
+				e.setLastDir(newDir);
+			}
+		}
+
+	}
+
+	private PathPoint getEnemyTile(Enemy e) {
+
+		switch (e.getLastDir()) {
+		case LEFT:
+			return new PathPoint((int) ((e.getX() + 31) / 32), (int) (e.getY() / 32));
+		case UP:
+			return new PathPoint((int) (e.getX() / 32), (int) ((e.getY() + 31) / 32));
+		case RIGHT:
+		case DOWN:
+			return new PathPoint((int) (e.getX() / 32), (int) (e.getY() / 32));
+
+		}
+
+		return new PathPoint((int) (e.getX() / 32), (int) (e.getY() / 32));
+	}
+
+	private boolean isTilesTheSame(PathPoint currTile, PathPoint newTile) {
+		if (currTile.getxCord() == newTile.getxCord())
+			if (currTile.getyCord() == newTile.getyCord())
+				return true;
+		return false;
 	}
 
 	public void updateEnemyMove(Enemy e) {

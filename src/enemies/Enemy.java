@@ -131,5 +131,9 @@ public abstract class Enemy {
 	public boolean isSlowed() {
 		return slowTick < slowTickLimit;
 	}
+	
+	public void setLastDir(int newDir) {
+		this.lastDir = newDir;
+	}
 
 }

@@ -11,6 +11,7 @@ import scenes.GameOver;
 import scenes.Menu;
 import scenes.Playing;
 import scenes.Settings;
+import scenes.WinGame;
 
 public class Game extends JFrame implements Runnable {
 
@@ -27,6 +28,7 @@ public class Game extends JFrame implements Runnable {
 	private Settings settings;
 	private Editing editing;
 	private GameOver gameOver;
+	private WinGame winGame;
 
 	private TileManager tileManager;
 
@@ -63,6 +65,7 @@ public class Game extends JFrame implements Runnable {
 		settings = new Settings(this);
 		editing = new Editing(this);
 		gameOver = new GameOver(this);
+		winGame = new WinGame(this);
 
 	}
 
@@ -84,6 +87,11 @@ public class Game extends JFrame implements Runnable {
 			playing.update();
 			break;
 		case SETTINGS:
+			break;
+		case GAME_OVER:
+			break;
+		case WIN_GAME: // Add this
+			// Add any logic here for the WinGame state if necessary
 			break;
 		default:
 			break;
@@ -164,6 +172,10 @@ public class Game extends JFrame implements Runnable {
 
 	public GameOver getGameOver() {
 		return gameOver;
+	}
+
+	public WinGame getWinGame() {
+		return winGame;
 	}
 
 	public TileManager getTileManager() {

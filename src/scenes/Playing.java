@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import enemies.Enemy;
 import helpz.LoadSave;
 import main.Game;
+import main.GameStates;
 import managers.EnemyManager;
 import managers.ProjectileManager;
 import managers.TowerManager;
@@ -69,6 +70,11 @@ public class Playing extends GameScene implements SceneMethods {
 			if (goldTick % (60 * 3) == 0)
 				actionBar.addGold(1);
 
+			if (hasPlayerWon()) {
+				SetGameState(WIN_GAME); // Transition to the win state
+				return;
+			}
+
 			if (isAllEnemiesDead()) {
 				if (isThereMoreWaves()) {
 					waveManager.startWaveTimer();
@@ -88,6 +94,7 @@ public class Playing extends GameScene implements SceneMethods {
 			enemyManager.update();
 			towerManager.update();
 			projManager.update();
+			checkVictoryCondition();
 
 		}
 	}
@@ -241,6 +248,16 @@ public class Playing extends GameScene implements SceneMethods {
 	public void shootEnemy(Tower t, Enemy e) {
 		projManager.newProjectile(t, e);
 
+	}
+
+	private void checkVictoryCondition() {
+		if (hasPlayerWon()) {
+			GameStates.gameState = GameStates.WIN_GAME; // Transition to WinGame state
+		}
+	}
+
+	private boolean hasPlayerWon() {
+		return !isThereMoreWaves() && isAllEnemiesDead();
 	}
 
 	public void setGamePaused(boolean gamePaused) {

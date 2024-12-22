@@ -38,10 +38,10 @@ public class ActionBar extends Bar {
 	}
 
 	public void resetEverything() {
-		lives = 25;
+		lives = 15;
 		towerCostType = 0;
 		showTowerCost = false;
-		gold = 100;
+		gold = 70;
 		selectedTower = null;
 		displayedTower = null;
 	}
